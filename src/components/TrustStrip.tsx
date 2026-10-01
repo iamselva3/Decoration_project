@@ -1,4 +1,4 @@
-import { Palette, Sparkles, ClipboardList, MapPin } from "lucide-react";
+
 import { motion } from "framer-motion";
 
 const STATS = [
