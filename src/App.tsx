@@ -22,7 +22,7 @@ export default function App() {
   });
 
   return (
-    <>
+    <div className="relative w-full overflow-x-hidden">
       {/* Scroll progress — gold line */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] bg-gold-400 origin-left z-[60]"
@@ -44,6 +44,6 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppFloat />
-    </>
+    </div>
   );
 }
