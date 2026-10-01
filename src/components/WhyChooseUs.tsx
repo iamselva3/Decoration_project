@@ -1,16 +1,15 @@
-import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const REASONS = [
   {
     title: "Custom Decoration for Your Event",
     description:
-      "We design every setup based on your specific event, theme preferences, and venue requirements — no cookie-cutter templates.",
+      "We design every setup based on your specific event, theme preferences, and venue — no cookie-cutter templates.",
   },
   {
     title: "Traditional & Modern Concepts",
     description:
-      "Whether you want an authentic Tamil wedding mandap or a contemporary reception stage, we blend both styles seamlessly.",
+      "Whether you want an authentic Tamil mandap or a contemporary reception stage, we blend both styles with care.",
   },
   {
     title: "Complete Setup Coordination",
@@ -20,7 +19,7 @@ const REASONS = [
   {
     title: "Attention to Finishing & Details",
     description:
-      "The draping, flower placement, lighting angles, and colour consistency — we care about the details that make the difference.",
+      "The draping, flower placement, lighting angles, colour consistency — we care about the details that make the difference.",
   },
   {
     title: "Flexible Budget Solutions",
@@ -30,55 +29,55 @@ const REASONS = [
   {
     title: "Service Across Tamil Nadu",
     description:
-      "From Chennai to Nagercoil, Madurai to Coimbatore — we travel to your venue and set up wherever your celebration happens.",
+      "From Chennai to Nagercoil, Madurai to Coimbatore — we travel to your venue wherever your celebration happens.",
   },
 ];
 
 export default function WhyChooseUs() {
   return (
-    <section className="section-padding bg-ivory-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-[#111]">
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-20">
+
         {/* Header */}
-        <motion.div
-          className="mb-12 md:mb-16 max-w-2xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-        >
-          <motion.p
-            className="text-maroon-600 text-sm tracking-[0.15em] uppercase mb-3"
-            initial={{ opacity: 0, x: -30 }}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 md:mb-24">
+          <div>
+            <motion.p
+              className="text-label text-gold-400 mb-4"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Why Us
+            </motion.p>
+            <motion.h2
+              className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.1 }}
+            >
+              Why Families &<br />Businesses Choose Us
+            </motion.h2>
+          </div>
+          <motion.div
+            className="flex items-end"
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ delay: 0.25 }}
           >
-            Why Us
-          </motion.p>
-          <motion.h2
-            className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal-900 mb-4"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            Why Families & Businesses Choose Us
-          </motion.h2>
-          <motion.p
-            className="text-charcoal-500 text-base md:text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            We take pride in delivering decoration work that looks as beautiful
-            in person as it does in photographs.
-          </motion.p>
-        </motion.div>
+            <p className="text-white/40 text-sm md:text-base leading-relaxed">
+              We take pride in delivering decoration work that looks as beautiful
+              in person as it does in photographs — every time, without exception.
+            </p>
+          </motion.div>
+        </div>
 
-        {/* Reasons Grid — alternating left/right slide */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+        {/* 6-reason grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
           {REASONS.map((reason, index) => (
-            <ReasonItem key={reason.title} {...reason} index={index} />
+            <ReasonCard key={reason.title} {...reason} index={index} />
           ))}
         </div>
       </div>
@@ -86,7 +85,7 @@ export default function WhyChooseUs() {
   );
 }
 
-function ReasonItem({
+function ReasonCard({
   title,
   description,
   index,
@@ -95,43 +94,29 @@ function ReasonItem({
   description: string;
   index: number;
 }) {
-  // Left column slides from left, right column from right
-  const isLeft = index % 2 === 0;
-
   return (
     <motion.div
-      className="flex gap-4"
-      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-        delay: index * 0.08,
-      }}
+      className="group border border-white/8 p-8 md:p-10 hover:bg-white/3 transition-colors duration-300 relative overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
     >
-      <motion.div
-        className="flex-shrink-0 mt-1"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 15,
-          delay: index * 0.08 + 0.2,
-        }}
-      >
-        <CheckCircle2 className="w-5 h-5 text-maroon-600" />
-      </motion.div>
-      <div>
-        <h3 className="font-display text-lg font-semibold text-charcoal-900 mb-2">
-          {title}
-        </h3>
-        <p className="text-charcoal-500 leading-relaxed text-sm md:text-base">
-          {description}
-        </p>
-      </div>
+      {/* Ghost number */}
+      <span className="absolute -top-4 -right-2 font-display text-[6rem] font-bold text-white/4 leading-none select-none pointer-events-none">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      {/* Gold accent dot */}
+      <div className="w-2 h-2 bg-gold-400 mb-6" />
+
+      <h3 className="font-display text-xl font-semibold text-white mb-3 leading-snug">
+        {title}
+      </h3>
+      <p className="text-white/40 text-sm leading-relaxed">{description}</p>
+
+      {/* Hover bottom line */}
+      <div className="absolute bottom-0 left-0 h-px bg-gold-400 w-0 group-hover:w-full transition-all duration-500 ease-out" />
     </motion.div>
   );
 }

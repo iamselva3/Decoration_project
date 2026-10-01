@@ -1,85 +1,63 @@
 import { Palette, Sparkles, ClipboardList, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
-const HIGHLIGHTS = [
-  {
-    icon: Palette,
-    title: "Custom Designs",
-    description: "Every décor is tailored to your event theme and vision.",
-  },
-  {
-    icon: Sparkles,
-    title: "Traditional & Modern",
-    description: "Blending cultural authenticity with contemporary elegance.",
-  },
-  {
-    icon: ClipboardList,
-    title: "Complete Setup",
-    description: "From concept to execution — we handle every detail.",
-  },
-  {
-    icon: MapPin,
-    title: "Tamil Nadu Wide",
-    description: "Serving celebrations across every district.",
-  },
+const STATS = [
+  { value: "10+", label: "Years Experience" },
+  { value: "1,200+", label: "Events Decorated" },
+  { value: "28", label: "Districts Served" },
+  { value: "100%", label: "On-Site Execution" },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
-  },
-};
+const MARQUEE_ITEMS = [
+  "Wedding Stages",
+  "Reception Setups",
+  "Traditional Mandaps",
+  "Pandhal Arrangements",
+  "Engagement Décor",
+  "Corporate Events",
+  "Birthday Celebrations",
+  "Cultural Programs",
+];
 
 export default function TrustStrip() {
-  return (
-    <section className="bg-maroon-800 text-white py-14 md:py-16" id="about">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.p
-          className="text-center text-ivory-200 text-sm tracking-[0.15em] uppercase mb-10 md:mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-        >
-          Decorating Celebrations Across Tamil Nadu
-        </motion.p>
+  const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
 
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {HIGHLIGHTS.map(({ icon: Icon, title, description }) => (
-            <motion.div key={title} className="text-center" variants={itemVariants}>
-              <motion.div
-                className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 mb-4"
-                whileHover={{ scale: 1.15, backgroundColor: "rgba(255,255,255,0.2)" }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Icon className="w-5 h-5 text-gold-400" />
-              </motion.div>
-              <h3 className="font-display text-lg font-semibold mb-2">
-                {title}
-              </h3>
-              <p className="text-ivory-300 text-sm leading-relaxed">
-                {description}
-              </p>
+  return (
+    <section id="about" className="bg-[#161616] border-y border-white/5">
+      {/* Stats row */}
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-20 py-16 md:py-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-white/10">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              className="flex flex-col items-center text-center md:px-10"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
+            >
+              <span className="font-display text-5xl md:text-6xl font-bold text-gold-400 leading-none mb-2">
+                {stat.value}
+              </span>
+              <span className="text-label text-white/40">{stat.label}</span>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
+      </div>
+
+      {/* Gold rule */}
+      <div className="rule-gold" />
+
+      {/* Scrolling marquee */}
+      <div className="overflow-hidden py-5 bg-[#111]">
+        <div className="animate-marquee">
+          {doubled.map((item, i) => (
+            <span key={i} className="flex items-center gap-5 text-white/30 text-label">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0" />
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

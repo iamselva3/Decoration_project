@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { IMAGES } from "../images";
 
 const TESTIMONIALS = [
   {
@@ -8,15 +7,15 @@ const TESTIMONIALS = [
     name: "Priya & Karthik",
     event: "Wedding",
     city: "Madurai",
-    avatar: IMAGES.testimonials[0],
+    year: "2024",
   },
   {
     quote:
-      "We had a tight timeline and a specific theme in mind. They understood our requirements perfectly and delivered a reception stage that exceeded our expectations.",
+      "We had a tight timeline and a specific theme in mind. They understood our requirements perfectly and delivered a reception stage that exceeded every expectation.",
     name: "Lakshmi Narayanan",
     event: "Reception",
     city: "Coimbatore",
-    avatar: IMAGES.testimonials[1],
+    year: "2024",
   },
   {
     quote:
@@ -24,107 +23,72 @@ const TESTIMONIALS = [
     name: "Senthil Kumar",
     event: "Wedding & Function Setup",
     city: "Thanjavur",
-    avatar: IMAGES.testimonials[2],
+    year: "2023",
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 50, rotateX: 5 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
-  },
-};
-
 export default function Testimonials() {
   return (
-    <section className="section-padding bg-maroon-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-[#111]">
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-20">
+
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 md:mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-        >
-          <motion.p
-            className="text-maroon-300 text-sm tracking-[0.15em] uppercase mb-3"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Testimonials
-          </motion.p>
-          <motion.h2
-            className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white"
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            What Our Clients Say
-          </motion.h2>
-        </motion.div>
-
-        {/* Testimonials Grid — staggered perspective rise */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          style={{ perspective: "800px" }}
-        >
-          {TESTIMONIALS.map((testimonial) => (
-            <motion.div
-              key={testimonial.name}
-              variants={cardVariants}
-              whileHover={{
-                y: -6,
-                transition: { duration: 0.25 },
-              }}
+        <div className="flex items-end justify-between mb-14 md:mb-20">
+          <div>
+            <motion.p
+              className="text-label text-gold-400 mb-4"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="bg-white/5 border border-white/10 p-6 md:p-8 h-full flex flex-col rounded-sm">
-                {/* Quote */}
-                <blockquote className="text-ivory-200 text-base leading-relaxed mb-6 flex-1">
-                  <span className="text-gold-400 text-2xl font-display leading-none">
-                    "
-                  </span>
-                  {testimonial.quote}
-                  <span className="text-gold-400 text-2xl font-display leading-none">
-                    "
-                  </span>
-                </blockquote>
+              Client Stories
+            </motion.p>
+            <motion.h2
+              className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.1 }}
+            >
+              What Our Clients Say
+            </motion.h2>
+          </div>
+        </div>
 
-                {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                    loading="lazy"
-                  />
-                  <div>
-                    <p className="text-white font-semibold text-sm">{testimonial.name}</p>
-                    <p className="text-maroon-300 text-xs">
-                      {testimonial.event} · {testimonial.city}
-                    </p>
-                  </div>
-                </div>
+        {/* Testimonials — editorial horizontal cards */}
+        <div className="space-y-0 divide-y divide-white/8">
+          {TESTIMONIALS.map((t, index) => (
+            <motion.div
+              key={t.name}
+              className="group grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 py-10 md:py-12 hover:bg-white/[0.015] transition-colors duration-300 px-2"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: index * 0.1 }}
+            >
+              {/* Quote text */}
+              <div className="flex gap-6 items-start">
+                <span className="font-display text-5xl text-gold-400/40 leading-none mt-1 select-none flex-shrink-0">
+                  "
+                </span>
+                <blockquote className="font-display text-xl md:text-2xl text-white/80 italic leading-relaxed">
+                  {t.quote}
+                </blockquote>
+              </div>
+
+              {/* Attribution — right aligned on desktop */}
+              <div className="md:text-right pl-14 md:pl-0 flex flex-col justify-center min-w-[160px]">
+                <p className="text-white font-semibold text-sm mb-0.5">{t.name}</p>
+                <p className="text-white/40 text-xs">{t.event}</p>
+                <p className="text-gold-400/70 text-xs mt-1">{t.city} · {t.year}</p>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
+
+        {/* Bottom gold rule */}
+        <div className="rule-gold mt-12" />
       </div>
     </section>
   );

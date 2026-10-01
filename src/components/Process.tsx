@@ -6,26 +6,22 @@ const STEPS = [
   {
     number: "01",
     title: "Tell Us About Your Event",
-    description:
-      "Share your event type, date, venue, and the vision you have in mind.",
+    description: "Share your event type, date, venue, and the vision you have in mind. A quick WhatsApp chat is enough to get started.",
   },
   {
     number: "02",
     title: "Choose Your Style",
-    description:
-      "Browse our portfolio, discuss themes, and pick the look that matches your celebration.",
+    description: "Browse our portfolio, discuss themes, and pick the look that matches your celebration and budget.",
   },
   {
     number: "03",
     title: "We Plan & Prepare",
-    description:
-      "Our team designs the layout, sources materials, and prepares everything in advance.",
+    description: "Our team designs the layout, sources materials, and prepares every element in advance — nothing left to chance.",
   },
   {
     number: "04",
     title: "We Transform Your Venue",
-    description:
-      "On the day, we arrive early, set up every detail, and make sure everything looks perfect.",
+    description: "On the day, we arrive early, set up every detail, and make sure everything looks perfect before the first guest arrives.",
   },
 ];
 
@@ -35,123 +31,71 @@ export default function Process() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.8", "end 0.6"],
+    offset: ["start 0.8", "end 0.5"],
   });
 
-  // Connector line width grows as user scrolls through section
   const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} className="section-padding bg-[#161616]">
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-20">
+
         {/* Header */}
-        <motion.div
-          className="text-center mb-14 md:mb-20"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-        >
+        <div className="mb-16 md:mb-24">
           <motion.p
-            className="text-maroon-600 text-sm tracking-[0.15em] uppercase mb-3"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="text-label text-gold-400 mb-4"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
           >
             How It Works
           </motion.p>
           <motion.h2
-            className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal-900"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white max-w-xl leading-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.9, delay: 0.1 }}
           >
             From Your Idea to the Final Celebration
           </motion.h2>
-        </motion.div>
+        </div>
 
-        {/* Steps with animated connector */}
+        {/* Steps */}
         <div className="relative">
-          {/* Connector line that draws as user scrolls (desktop) */}
-          <div className="hidden md:block absolute top-8 left-[8%] right-[8%] h-px bg-maroon-100">
+          {/* Scroll-drawn connector line — desktop */}
+          <div className="hidden md:block absolute top-7 left-0 right-0 h-px bg-white/8">
             <motion.div
-              className="h-full bg-maroon-600 origin-left"
+              className="h-full bg-gold-400 origin-left"
               style={{ width: prefersReduced ? "100%" : lineWidth }}
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
             {STEPS.map((step, index) => (
-              <StepItem key={step.number} {...step} index={index} />
+              <motion.div
+                key={step.number}
+                className="relative"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: index * 0.15 }}
+              >
+                {/* Step node */}
+                <div className="w-14 h-14 border border-white/15 flex items-center justify-center mb-6 relative bg-[#161616]">
+                  <span className="font-display text-2xl font-bold text-gold-400">{step.number}</span>
+                </div>
+
+                <h3 className="font-display text-xl font-semibold text-white mb-3 leading-snug">
+                  {step.title}
+                </h3>
+                <p className="text-white/40 text-sm leading-relaxed">{step.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function StepItem({
-  number,
-  title,
-  description,
-  index,
-}: {
-  number: string;
-  title: string;
-  description: string;
-  index: number;
-}) {
-  return (
-    <motion.div
-      className="relative"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-        delay: index * 0.15,
-      }}
-    >
-      <div className="relative">
-        {/* Animated number — counts up effect via scale */}
-        <motion.span
-          className="font-display text-5xl md:text-6xl font-bold text-maroon-100 block"
-          initial={{ scale: 0.5, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            type: "spring",
-            stiffness: 200,
-            damping: 15,
-            delay: index * 0.15 + 0.1,
-          }}
-        >
-          {number}
-        </motion.span>
-
-        <motion.h3
-          className="font-display text-lg font-semibold text-charcoal-900 mt-3 mb-2"
-          initial={{ opacity: 0, x: -15 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.15 + 0.25 }}
-        >
-          {title}
-        </motion.h3>
-
-        <motion.p
-          className="text-charcoal-500 text-sm leading-relaxed"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.15 + 0.35 }}
-        >
-          {description}
-        </motion.p>
-      </div>
-    </motion.div>
   );
 }

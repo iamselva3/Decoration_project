@@ -1,11 +1,13 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap");
 
 /* ============================================
-   CUSTOM THEME — Tamil Nadu Event Decoration
+   DESIGN SYSTEM — Aravalli Decorations
+   Dark editorial luxury aesthetic
    ============================================ */
 
 @theme {
-  --color-maroon-50: #fdf2f4;
+  --color-maroon-50:  #fdf2f4;
   --color-maroon-100: #fae6ea;
   --color-maroon-200: #f5c8d1;
   --color-maroon-300: #ec9dad;
@@ -17,14 +19,14 @@
   --color-maroon-900: #4a0a16;
   --color-maroon-950: #2d060d;
 
-  --color-ivory-50: #fefdfb;
+  --color-ivory-50:  #fefdfb;
   --color-ivory-100: #fdfaf4;
   --color-ivory-200: #faf3e6;
   --color-ivory-300: #f5ead4;
   --color-ivory-400: #eedcb8;
   --color-ivory-500: #e5cb96;
 
-  --color-gold-50: #fefce8;
+  --color-gold-50:  #fefce8;
   --color-gold-100: #fef9c3;
   --color-gold-200: #fef08a;
   --color-gold-300: #fde047;
@@ -32,7 +34,7 @@
   --color-gold-500: #a38520;
   --color-gold-600: #866b19;
 
-  --color-charcoal-50: #f6f6f6;
+  --color-charcoal-50:  #f6f6f6;
   --color-charcoal-100: #e7e7e7;
   --color-charcoal-200: #d1d1d1;
   --color-charcoal-300: #b0b0b0;
@@ -41,121 +43,246 @@
   --color-charcoal-600: #5d5d5d;
   --color-charcoal-700: #4f4f4f;
   --color-charcoal-800: #3a3a3a;
-  --color-charcoal-900: #2a2a2a;
-  --color-charcoal-950: #1a1a1a;
+  --color-charcoal-900: #1c1c1c;
+  --color-charcoal-950: #111111;
 
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body:    "Inter", "Segoe UI", system-ui, sans-serif;
 }
+
 
 /* ============================================
-   BASE STYLES
+   BASE
    ============================================ */
 
-html {
-  scroll-behavior: smooth;
-}
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  color: var(--color-charcoal-900);
-  background-color: var(--color-ivory-50);
+  color: #f0ece4;
+  background-color: #111111;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Premium editorial typography */
-.font-display {
-  font-family: var(--font-display);
+/* Grain texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 192px 192px;
+  opacity: 0.35;
 }
 
-/* Section spacing utility */
+.font-display { font-family: var(--font-display); }
+
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
-
 @media (min-width: 768px) {
   .section-padding {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 9rem;
+    padding-bottom: 9rem;
   }
 }
 
-/* Subtle fade-in animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* ============================================
+   HORIZONTAL SCROLL GALLERY
+   ============================================ */
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.7s ease-out forwards;
-}
-
-/* Masonry-like gallery helper */
-.gallery-grid {
-  display: grid;
+.h-scroll-track {
+  display: flex;
   gap: 1rem;
-  grid-template-columns: repeat(2, 1fr);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+  cursor: grab;
+}
+.h-scroll-track:active { cursor: grabbing; }
+.h-scroll-track::-webkit-scrollbar { height: 2px; }
+.h-scroll-track::-webkit-scrollbar-track { background: #1a1a1a; }
+.h-scroll-track::-webkit-scrollbar-thumb { background: #c9a926; }
+
+.h-scroll-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
-@media (min-width: 768px) {
-  .gallery-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
+/* ============================================
+   MASONRY PORTFOLIO
+   ============================================ */
+
+.masonry-grid {
+  columns: 2;
+  column-gap: 0.625rem;
+}
+@media (min-width: 640px)  { .masonry-grid { columns: 3; column-gap: 0.875rem; } }
+@media (min-width: 1024px) { .masonry-grid { columns: 4; column-gap: 1rem; } }
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 0.625rem;
+}
+@media (min-width: 640px)  { .masonry-item { margin-bottom: 0.875rem; } }
+@media (min-width: 1024px) { .masonry-item { margin-bottom: 1rem; } }
+
+/* ============================================
+   3D CARDS
+   ============================================ */
+
+.card-3d-wrapper { perspective: 900px; }
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@media (min-width: 1024px) {
-  .gallery-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+.text-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-/* Elegant image hover */
-.img-hover {
-  overflow: hidden;
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c9a926 30%, #c9a926 70%, transparent);
 }
 
-.img-hover img {
-  transition: transform 0.6s ease;
-}
+/* ============================================
+   BUTTONS
+   ============================================ */
 
-.img-hover:hover img {
-  transform: scale(1.05);
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #c9a926;
+  color: #111111;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.875rem 2.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-family: var(--font-body);
 }
+.btn-primary:hover { background: #a38520; transform: translateY(-2px); }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #f0ece4;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.875rem 2.25rem;
+  border: 1px solid rgba(240,236,228,0.3);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  font-family: var(--font-body);
 }
+.btn-outline:hover { border-color: #c9a926; color: #c9a926; transform: translateY(-2px); }
 
-::-webkit-scrollbar-track {
-  background: var(--color-ivory-100);
+/* ============================================
+   DARK FORM INPUTS
+   ============================================ */
+
+.dark-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: #181818;
+  border: 1px solid #2a2a2a;
+  color: #f0ece4;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+  outline: none;
 }
+.dark-input::placeholder { color: #555; }
+.dark-input:focus { border-color: #c9a926; }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-maroon-300);
-  border-radius: 4px;
+.dark-select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: #181818;
+  border: 1px solid #2a2a2a;
+  color: #f0ece4;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
 }
+.dark-select:focus { border-color: #c9a926; }
+.dark-select option { background: #181818; color: #f0ece4; }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-maroon-500);
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  white-space: nowrap;
+}
+.animate-marquee:hover { animation-play-state: paused; }
 
-/* Focus styles for accessibility */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-fade-up { animation: fadeSlideUp 0.8s cubic-bezier(0.23,1,0.32,1) forwards; }
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #c9a926; }
+
+/* ============================================
+   SELECTION & FOCUS
+   ============================================ */
+
+::selection { background: rgba(201,169,38,0.22); color: #f0ece4; }
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--color-maroon-500);
-  outline-offset: 2px;
+  outline: 2px solid #c9a926;
+  outline-offset: 3px;
 }
+
+
+
