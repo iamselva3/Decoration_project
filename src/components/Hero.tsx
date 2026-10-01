@@ -42,7 +42,7 @@ export default function Hero() {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 w-full pb-20 md:pb-28 px-6 sm:px-10 lg:px-20"
+        className="relative z-10 w-full pt-32 pb-20 md:pb-28 px-6 sm:px-10 lg:px-20"
         style={{
           y:       prefersReduced ? 0 : textY,
           opacity: prefersReduced ? 1 : opacity,
@@ -70,7 +70,7 @@ export default function Hero() {
         {/* Heading */}
         <div className="overflow-hidden mb-6">
           <motion.h1
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-bold text-white leading-[1.0] tracking-tight max-w-4xl"
+            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-8xl font-bold text-white leading-[1.05] tracking-tight max-w-4xl"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.1, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
